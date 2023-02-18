@@ -9,8 +9,8 @@ import UIKit
 
 protocol ProductsCellDelegate: AnyObject {
     func didSelectionsProducts (item: Product)
-        
-    }
+    
+}
 
 class ProductTableViewCell: UITableViewCell {
     
@@ -30,26 +30,28 @@ class ProductTableViewCell: UITableViewCell {
             productImageView.addGestureRecognizer(tap)
         }
     }
-
+    private var tags: [String] = []
+    
     weak var delegate: ProductsCellDelegate?
     private var products: Product?
-        public func display(item: Product) {
+    public func display(item: Product) {
         products = item
         productImageView.image = UIImage(named: item.productsImageView)
-        whereFromProducts.text = item.madeOnTheWord
-        productNameLable.text = item.nameProducts
-        openCloseLable.text = item.openClose
-        deliveryLable.text = item.delivery
-        distanceLable.text = item.distance
-        rateLable.text = item.rate
-        timeLable.text = item.time
-        costLable.text = item.cost
+        whereFromProducts.text = item.description
+        productNameLable.text = item.title
+        openCloseLable.text = item.discountPercentage
+        deliveryLable.text = item.brand
+        distanceLable.text = item.rating
+        rateLable.text = item.stock
+        timeLable.text = item.category
+        costLable.text = "\(item.price)"
         openCloseLable.textColor = .systemGreen
         deliveryLable.textColor = .lightGray
         distanceLable.backgroundColor = .orange
         rateLable.textColor = .lightGray
         costLable.textColor = .lightGray
         whereFromProducts.textColor = .lightGray
+        
     }
     
     @objc
@@ -62,3 +64,4 @@ class ProductTableViewCell: UITableViewCell {
         delegate?.didSelectionsProducts(item: products)
     }
 }
+

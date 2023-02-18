@@ -16,10 +16,10 @@ class ViewController: UIViewController {
     @IBOutlet private weak var categoryCollectionView: UICollectionView!
     @IBOutlet private weak var productTableView: UITableView!
     
-    private var productArray: [Product] = []
+//    private var productArray: [Product] = []
     private var categoryArray: [Category] = []
     private var orderType: [TypeOfOrder] = []
-    private var products: [Products] = []
+    private var products: [Product] = []
     private var isLoading = false
     
     override func viewDidLoad() {
@@ -30,9 +30,9 @@ class ViewController: UIViewController {
         categoryCollectionView.showsHorizontalScrollIndicator = false
         productTableView.showsVerticalScrollIndicator = false
         productTableView.showsHorizontalScrollIndicator = false
-        fetchProducts()
-        fetchcategory()
-        fetchOrderType()
+//        fetchProducts()
+//        fetchcategory()
+//        fetchOrderType()
         fetchProduct()
     }
     
@@ -56,29 +56,29 @@ class ViewController: UIViewController {
         ProductTableViewCell.reuseIdentifier)
     }
     
-    private func fetchProducts() {
-        do { productArray = try NetworkLayer.shared.fetchProducts()
-            productTableView.reloadData()
-        }catch {
-            print("error \(error.localizedDescription)")
-        }
-    }
-    
-    private func fetchcategory() {
-        do { categoryArray = try NetworkLayer.shared.fetchCategory()
-           categoryCollectionView.reloadData()
-        }catch {
-            print("error \(error.localizedDescription)")
-        }
-    }
-    
-    private func fetchOrderType() {
-        do { orderType = try NetworkLayer.shared.fetchOrderType()
-            typeOfOrderCollectionView.reloadData()
-        } catch {
-            print("error \(error.localizedDescription)")
-        }
-    }
+//    private func fetchProducts() {
+//        do { productArray = try NetworkLayer.shared.fetchProducts()
+//            productTableView.reloadData()
+//        }catch {
+//            print("error \(error.localizedDescription)")
+//        }
+//    }
+//    
+//    private func fetchcategory() {
+//        do { categoryArray = try NetworkLayer.shared.fetchCategory()
+//           categoryCollectionView.reloadData()
+//        }catch {
+//            print("error \(error.localizedDescription)")
+//        }
+//    }
+//    
+//    private func fetchOrderType() {
+//        do { orderType = try NetworkLayer.shared.fetchOrderType()
+//            typeOfOrderCollectionView.reloadData()
+//        } catch {
+//            print("error \(error.localizedDescription)")
+//        }
+//    }
     
     private func fetchProduct() {
         isLoading = true
@@ -87,7 +87,7 @@ class ViewController: UIViewController {
             self.isLoading = false
             switch result {
             case .success(let model):
-                self.productArray = model
+                self.products = model
                 DispatchQueue.main.async {
                     self.productTableView.reloadData()
                 }
@@ -104,7 +104,7 @@ class ViewController: UIViewController {
             self.isLoading = false
             switch result {
             case .success(let model):
-                self.productArray = model
+                self.products = model
                 DispatchQueue.main.async {
                     self.productTableView.reloadData()
                 }
@@ -125,7 +125,7 @@ class ViewController: UIViewController {
         func tableView(_ tableView: UITableView,
         numberOfRowsInSection section: Int
         ) -> Int {
-            productArray.count
+            products.count
         }
         
         func tableView(_ tableView: UITableView,
@@ -135,7 +135,7 @@ class ViewController: UIViewController {
         withIdentifier: ProductTableViewCell.reuseIdentifier,
         for: indexPath
             ) as! ProductTableViewCell
-            let model = productArray[indexPath.row]
+            let model = products[indexPath.row]
             cell.display(item: model)
             cell.delegate = self
             print("cell created")
