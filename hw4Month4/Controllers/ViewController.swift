@@ -16,7 +16,6 @@ class ViewController: UIViewController {
     @IBOutlet private weak var categoryCollectionView: UICollectionView!
     @IBOutlet private weak var productTableView: UITableView!
     
-    private var productArray: [Product] = []
     private var categoryArray: [Category] = []
     private var orderType: [TypeOfOrder] = []
     private var products: [Products] = []
@@ -30,7 +29,6 @@ class ViewController: UIViewController {
         categoryCollectionView.showsHorizontalScrollIndicator = false
         productTableView.showsVerticalScrollIndicator = false
         productTableView.showsHorizontalScrollIndicator = false
-        fetchProducts()
         fetchcategory()
         fetchOrderType()
         fetchProduct()
@@ -48,22 +46,14 @@ class ViewController: UIViewController {
         bundle: nil), forCellWithReuseIdentifier:
         OrderTypeCollectionViewCell.reuseIdentifierForOrderType)
         categoryCollectionView.register(UINib(nibName: String(
-       describing: CategoryCollectionViewCell.self), bundle: nil),
+        describing: CategoryCollectionViewCell.self), bundle: nil),
         forCellWithReuseIdentifier: CategoryCollectionViewCell.reuseIdentifier)
         productTableView.register(UINib(nibName:
         String( describing: ProductTableViewCell.self)
         , bundle: nil), forCellReuseIdentifier:
         ProductTableViewCell.reuseIdentifier)
     }
-    
-    private func fetchProducts() {
-        do { productArray = try NetworkLayer.shared.fetchProducts()
-            productTableView.reloadData()
-        }catch {
-            print("error \(error.localizedDescription)")
-        }
-    }
-    
+
     private func fetchcategory() {
         do { categoryArray = try NetworkLayer.shared.fetchCategory()
            categoryCollectionView.reloadData()
@@ -125,7 +115,7 @@ class ViewController: UIViewController {
         func tableView(_ tableView: UITableView,
         numberOfRowsInSection section: Int
         ) -> Int {
-            productArray.count
+            products.count
         }
         
         func tableView(_ tableView: UITableView,
@@ -135,7 +125,7 @@ class ViewController: UIViewController {
         withIdentifier: ProductTableViewCell.reuseIdentifier,
         for: indexPath
             ) as! ProductTableViewCell
-            let model = productArray[indexPath.row]
+            let model = products[indexPath.row]
             cell.display(item: model)
             cell.delegate = self
             print("cell created")
