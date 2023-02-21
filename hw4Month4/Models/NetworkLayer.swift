@@ -7,7 +7,7 @@
 
 import Foundation
 
-inal class NetworkLayer {
+final class NetworkLayer {
     static let shared = NetworkLayer()
     
     private init() { }
