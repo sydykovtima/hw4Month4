@@ -209,7 +209,8 @@ extension ViewController: UITableViewDelegate {
             alert.addAction(UIAlertAction(title: "нет", style: .default))
             present(alert, animated: true)
         } else {
-            let alert = UIAlertController(title: "Хотите создать новый продукт?", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: "Хотите создать новый продукт?", 
+            message: nil, preferredStyle: .alert)
             let yesAction = UIAlertAction(title: "Да", style: .default) { [unowned self] action in
                 let vc = storyboard?.instantiateViewController(withIdentifier: "second_vc")
                 as! SecondViewController
