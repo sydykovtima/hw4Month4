@@ -15,14 +15,14 @@ protocol ProductsCellDelegate: AnyObject {
 class ProductTableViewCell: UITableViewCell {
     
     static let reuseIdentifier = String(describing: ProductTableViewCell.self)
-    @IBOutlet private weak var rateLable: UILabel!
-    @IBOutlet private weak var distanceLable: UILabel!
-    @IBOutlet private weak var productNameLable: UILabel!
-    @IBOutlet private weak var openCloseLable: UILabel!
-    @IBOutlet private weak var timeLable: UILabel!
-    @IBOutlet private weak var costLable: UILabel!
-    @IBOutlet private weak var deliveryLable: UILabel!
-    @IBOutlet private weak var whereFromProducts: UILabel!
+    @IBOutlet private weak var ratingLable: UILabel!
+    @IBOutlet private weak var categoryLable: UILabel!
+    @IBOutlet private weak var titleLable: UILabel!
+    @IBOutlet private weak var brandLable: UILabel!
+    @IBOutlet private weak var descriptionLable: UILabel!
+    @IBOutlet private weak var priceLable: UILabel!
+    @IBOutlet private weak var discountPercentageLable: UILabel!
+    @IBOutlet private weak var stock: UILabel!
     @IBOutlet private weak var productImageView: UIImageView! {
         didSet {
             productImageView.isUserInteractionEnabled = true
@@ -36,21 +36,20 @@ class ProductTableViewCell: UITableViewCell {
     private var products: Product?
     public func display(item: Product) {
         products = item
-        productImageView.image = UIImage(named: item.productsImageView)
-        whereFromProducts.text = item.description
-        productNameLable.text = item.title
-        openCloseLable.text = item.discountPercentage
-        deliveryLable.text = item.brand
-        distanceLable.text = item.rating
-        rateLable.text = item.stock
-        timeLable.text = item.category
-        costLable.text = "\(item.price)"
-        openCloseLable.textColor = .systemGreen
-        deliveryLable.textColor = .lightGray
-        distanceLable.backgroundColor = .orange
-        rateLable.textColor = .lightGray
-        costLable.textColor = .lightGray
-        whereFromProducts.textColor = .lightGray
+        productImageView.getImage(from: item.thumbnail)
+        descriptionLable.text = item.description
+        titleLable.text = item.title
+        discountPercentageLable.text = "\(item.discountPercentage)"
+        brandLable.text = item.brand
+        stock.text = "\(item.stock)"
+        ratingLable.text = "\(item.rating)"
+        categoryLable.text = item.category
+        priceLable.text = "\(item.price)"
+        discountPercentageLable.textColor = .lightGray
+        stock.backgroundColor = .orange
+        ratingLable.textColor = .lightGray
+        priceLable.textColor = .lightGray
+        descriptionLable.textColor = .lightGray
         
     }
     
@@ -64,4 +63,6 @@ class ProductTableViewCell: UITableViewCell {
         delegate?.didSelectionsProducts(item: products)
     }
 }
+
+
 
